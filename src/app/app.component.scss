@@ -1,0 +1,22 @@
+mat-grid-tile {
+  background: lightblue;
+  // border: 1px solid black;
+  border-radius: 10px;
+  margin-right: 30px !important;
+}
+
+.small-card {
+  width: 20px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.red-card {
+  background-color: #E55451;
+}
+
+.blue-card {
+  background-color: lightblue;
+}
