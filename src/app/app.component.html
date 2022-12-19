@@ -1,22 +1,27 @@
 <mat-grid-list cols="5" rowHeight="2:1" [gutterSize]="'5px'">
-  <mat-grid-tile (click)="picked(tile)"
+  <mat-grid-tile (click)="picked(tile)" 
       *ngFor="let tile of tiles"
       [style.background]="getCardColor(tile)"
       [style.color]="getCardTextColor(tile)">
-    {{tile.text | uppercase}}
+    <div [style.text-decoration]="isLeader && tile.clicked ? 'line-through' : 'none'">{{tile.text | uppercase}}</div>
   </mat-grid-tile>
 </mat-grid-list>
 
 
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <div fxFlex="50" fxLayout="row" fxLayoutAlign="space-around center">
+  <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center">
     <div class="small-card red-card">{{redLeft}}</div>
     <div class="small-card blue-card">{{blueLeft}}</div>
   </div>
 
   <div fxFlex="50" fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-slide-toggle [(ngModel)]="areClickedHidden">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div *ngIf="areClickedHidden" class="small-card card-icon">?</div>
+        <div *ngIf="!areClickedHidden" class="small-card card-icon">ABC</div>
+      </div>
+    </mat-slide-toggle>
     <button mat-raised-button [disabled]="isLeader" (click)="leaderSwitch()">Lider</button>
     <button mat-raised-button (click)="newGame()">Nowa gra</button>
-    <button mat-raised-button (click)="hideClicked()"> {{areClickedHidden ? "Pokaż odkryte" : "Ukryj odkryte"}}</button>
   </div>
 </div>

@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TileStyler } from '@angular/material/grid-list/tile-styler';
 import { HttpClientService } from './http-client.service';
 
 @Component({
@@ -22,6 +21,12 @@ export class AppComponent implements OnInit {
     this.isLeader = false;
     this.redLeft = 0;
     this.blueLeft = 0;
+    setInterval(() => {
+      this.fetchTiles();
+    }, 1000);
+  }
+
+  fetchTiles() {
     this.httpClient.getRoundInfo().subscribe(roundInfo => {
       if (roundInfo.gameName != this.currentGameName) {
         this.isLeader = false;
@@ -47,12 +52,12 @@ export class AppComponent implements OnInit {
       return 'white';
     }
     if (this.isLeader) {
-      if (tile.clicked) {
-        return 'grey';
-      }
-      else {
+      // if (tile.clicked) {
+      //   return 'grey';
+      // }
+      // else {
         return tile.color;
-      }
+      // }
     }
     else {
       if (tile.clicked) {

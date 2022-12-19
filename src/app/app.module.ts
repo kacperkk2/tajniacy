@@ -9,6 +9,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatIconModule} from '@angular/material/icon';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     MatButtonModule,
     MatDialogModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

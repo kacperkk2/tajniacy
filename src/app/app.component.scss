@@ -6,11 +6,16 @@ mat-grid-tile {
 }
 
 .small-card {
-  width: 20px;
+  width: 30px;
   height: 40px;
   line-height: 40px;
   text-align: center;
   border-radius: 3px;
+  margin-left: 20px;
+}
+
+.card-icon {
+  background-color: lightgrey;
 }
 
 .red-card {
@@ -19,4 +24,8 @@ mat-grid-tile {
 
 .blue-card {
   background-color: lightblue;
+}
+
+.test {
+  text-decoration: line-through !important;
 }
