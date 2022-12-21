@@ -7,7 +7,7 @@ import { Tile } from './app.component';
 })
 export class HttpClientService {
 
-  baseUrl: string = "http://localhost:8080"
+  baseUrl: string = "https://tajniacy-backend-production.up.railway.app"
 
   constructor(private http: HttpClient) { }
 
