@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {FormsModule} from '@angular/forms';
     FlexLayoutModule,
     MatSlideToggleModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

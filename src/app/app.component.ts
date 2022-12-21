@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { HttpClientService } from './http-client.service';
 
 @Component({
@@ -14,21 +15,51 @@ export class AppComponent implements OnInit {
   blueLeft: number = 0;
   currentGameName: string = "";
   areClickedHidden: boolean = false;
+  secondsFromLastClick: number = 0;
+  secondsThisGame: number = 0;
+  clickedInThisGame: number = 0;
 
-  constructor(private httpClient: HttpClientService, private dialog: MatDialog) { }
+  constructor(private httpClient: HttpClientService, private dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.isLeader = false;
     this.redLeft = 0;
     this.blueLeft = 0;
+    this.secondsThisGame = 0;
+    this.secondsFromLastClick = 0;
+    this.clickedInThisGame = 0;
     setInterval(() => {
       this.fetchTiles();
     }, 1000);
+    setInterval(() => {
+      this.secondsFromLastClick++;
+    }, 1000);
+    setInterval(() => {
+      this.secondsThisGame++;
+    }, 1000);
+  }
+
+  openSnackBar() {
+    const msg = 'Czas gry: ' + this.formatTime(this.secondsThisGame) + 
+      '. Czas od ostatniego ruchu: ' + this.formatTime(this.secondsFromLastClick);
+    this._snackBar.open(msg, 'Zamknij', {
+      duration: 3000,
+      panelClass: ['snackbar']
+    });
+  }
+
+  formatTime(seconds: number) {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds  % 60;
+    return (mins < 10 ? '0' + mins : mins) + ':' + (secs < 10 ? '0' + secs : secs)
   }
 
   fetchTiles() {
     this.httpClient.getRoundInfo().subscribe(roundInfo => {
       if (roundInfo.gameName != this.currentGameName) {
+        this.clickedInThisGame = 0;
+        this.secondsFromLastClick = 0;
+        this.secondsThisGame = 0;
         this.isLeader = false;
         this.currentGameName = roundInfo.gameName;
       }
@@ -36,15 +67,38 @@ export class AppComponent implements OnInit {
       this.tiles = roundInfo.tiles;
       this.redLeft = this.tiles.filter(tile => tile.color == Color.RED && !tile.clicked).length;
       this.blueLeft = this.tiles.filter(tile => tile.color == Color.BLUE && !tile.clicked).length;
+      const clickedTiles = this.tiles.filter(tile => tile.clicked).length;
+      if (clickedTiles != this.clickedInThisGame) {
+        this.secondsFromLastClick = 0;
+        this.clickedInThisGame = clickedTiles;
+      }
     });
   }
 
   leaderSwitch() {
-    this.isLeader = true;
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {data: "Na pewno chcesz zostać liderem?"});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.isLeader = true;
+      }
+    });
   }
 
   hideClicked() {
     this.areClickedHidden = !this.areClickedHidden;
+  }
+
+  getBorderColor(tile: Tile) {
+    if (this.areClickedHidden && tile.clicked) {
+      return 'white';
+    }
+    else if (this.isLeader && tile.clicked) {
+      return '0px 0px 0px 5px ' + tile.color + ' inset';
+    }
+    else {
+      return 'none';
+    }
   }
 
   getCardColor(tile: Tile) {
@@ -52,12 +106,12 @@ export class AppComponent implements OnInit {
       return 'white';
     }
     if (this.isLeader) {
-      // if (tile.clicked) {
-      //   return 'grey';
-      // }
-      // else {
+      if (tile.clicked) {
+        return 'white';
+      }
+      else {
         return tile.color;
-      // }
+      }
     }
     else {
       if (tile.clicked) {
@@ -70,7 +124,13 @@ export class AppComponent implements OnInit {
   }
 
   getCardTextColor(tile: Tile) {
-    if (this.areClickedHidden && tile.clicked || tile.color == Color.BLACK && tile.clicked || tile.color == Color.BLACK && this.isLeader) {
+    if (this.areClickedHidden && tile.clicked) {
+      return 'white';
+    }
+    else if (tile.color == Color.BLACK && tile.clicked && !this.isLeader) {
+      return 'white';
+    }
+    else if (tile.color == Color.BLACK && !tile.clicked && this.isLeader) {
       return 'white';
     }
     else {
@@ -108,7 +168,7 @@ export interface Tile {
 }
 
 const Color = {
-  "RED": "#E55451",
+  "RED": "#f06a68",
   "BLUE": "lightblue",
   "BLANK": "#CDCDCD",
   "BLACK": "black"

@@ -1,27 +1,47 @@
-<mat-grid-list cols="5" rowHeight="2:1" [gutterSize]="'5px'">
-  <mat-grid-tile (click)="picked(tile)" 
-      *ngFor="let tile of tiles"
-      [style.background]="getCardColor(tile)"
-      [style.color]="getCardTextColor(tile)">
-    <div [style.text-decoration]="isLeader && tile.clicked ? 'line-through' : 'none'">{{tile.text | uppercase}}</div>
-  </mat-grid-tile>
-</mat-grid-list>
 
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 100%;">
 
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center">
-    <div class="small-card red-card">{{redLeft}}</div>
-    <div class="small-card blue-card">{{blueLeft}}</div>
-  </div>
+  <div class="main" fxLayout="column" fxLayoutAlign="center center">
 
-  <div fxFlex="50" fxLayout="row" fxLayoutAlign="space-around center">
-    <mat-slide-toggle [(ngModel)]="areClickedHidden">
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-        <div *ngIf="areClickedHidden" class="small-card card-icon">?</div>
-        <div *ngIf="!areClickedHidden" class="small-card card-icon">ABC</div>
+    <div fxFlexFill fxFlex="87">
+      <mat-grid-list cols="5" [gutterSize]="'5px'" rowHeight="fit">
+        <mat-grid-tile (click)="picked(tile)" 
+            *ngFor="let tile of tiles"
+            [style.background]="getCardColor(tile)"
+            [style.box-shadow]="getBorderColor(tile)"
+            [style.color]="getCardTextColor(tile)">
+          <div [style.text-decoration]="isLeader && tile.clicked ? 'line-through' : 'none'">{{tile.text | uppercase}}</div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  
+    <div fxFlexFill fxFlex="1"></div>
+    
+    <div class="bottom-nav" fxFlexFill fxFlex="12" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="40" fxLayout="row" fxLayoutAlign="start center">
+        <button mat-stroked-button [disabled]="isLeader" (click)="leaderSwitch()">LIDER</button>
+        <button mat-stroked-button (click)="newGame()">NOWA GRA</button>
       </div>
-    </mat-slide-toggle>
-    <button mat-raised-button [disabled]="isLeader" (click)="leaderSwitch()">Lider</button>
-    <button mat-raised-button (click)="newGame()">Nowa gra</button>
+    
+      <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+        <div class="small-card red-card">{{redLeft}}</div>
+        <div class="small-card blue-card">{{blueLeft}}</div>
+      </div>
+    
+      <div fxFlex="40" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-stroked-button (click)="openSnackBar()" aria-label="Show an example snack-bar">
+          CZAS
+        </button>
+        <mat-slide-toggle [(ngModel)]="areClickedHidden">
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <div *ngIf="areClickedHidden" class="card-icon">?</div>
+            <div *ngIf="!areClickedHidden" class="card-icon">ABC</div>
+          </div>
+        </mat-slide-toggle>
+      </div>
+    </div>
+  
   </div>
+  
+  
 </div>
