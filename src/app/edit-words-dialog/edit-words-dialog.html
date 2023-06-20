@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <p mat-dialog-title> Wszystkich haseł: {{ words.length }} (w użyciu: {{ wordsInUse }}) </p>
+    <div>
+        <button mat-icon-button (click)="onCheckAll()" [disabled]="wordsInUse == words.length">
+            <mat-icon>check_circle</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onUncheckAll()" [disabled]="wordsInUse == 0" style="margin-right: 30px;">
+            <mat-icon>check_circle_outline</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onBackClick()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+<mat-dialog-content>
+    <mat-grid-list cols="5" [gutterSize]="'5px'" rowHeight="30px">
+        <mat-grid-tile *ngFor="let word of words" style="border-radius: 3px;"
+            [style.background]="word.inUse ? '#ebd2a4' : '#535353'"
+            [style.color]="word.inUse ? 'black' : 'lightgrey'"
+            (click)="toggle(word)">
+          <div> {{ word.word | uppercase }} </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+        <button mat-raised-button style="background-color: #282828" (click)="onDeleteUnused()" [disabled]="wordsInUse == words.length"> Usuń nie używane hasła </button>
+        <button mat-raised-button style="background-color: #282828" (click)="onAddNew()"> Dodaj nowe hasła </button>
+        <button mat-raised-button style="background-color: #282828" (click)="onReset()"> Wczytaj domyślne </button>
+    </div>
+    <button mat-raised-button style="background-color: #282828" (click)="onSave()" cdkFocusInitial>Zapisz</button>
+</mat-dialog-actions>

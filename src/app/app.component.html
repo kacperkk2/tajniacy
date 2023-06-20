@@ -9,7 +9,8 @@
             *ngFor="let tile of tiles"
             [style.background]="getCardColor(tile)"
             [style.box-shadow]="getBorderColor(tile)"
-            [style.color]="getCardTextColor(tile)">
+            [style.color]="getCardTextColor(tile)"
+            class="main-tile">
           <div [style.text-decoration]="isLeader && tile.clicked ? 'line-through' : 'none'">{{tile.text | uppercase}}</div>
         </mat-grid-tile>
       </mat-grid-list>
@@ -19,8 +20,9 @@
     
     <div class="bottom-nav" fxFlexFill fxFlex="12" fxLayout="row" fxLayoutAlign="space-between center">
       <div fxFlex="40" fxLayout="row" fxLayoutAlign="start center">
-        <button mat-stroked-button [disabled]="isLeader" (click)="leaderSwitch()">LIDER</button>
-        <button mat-stroked-button (click)="newGame()">NOWA GRA</button>
+        <button mat-raised-button class="bottom-button" [disabled]="isLeader" (click)="leaderSwitch()">LIDER</button>
+        <button mat-raised-button class="bottom-button" (click)="newGame()">NOWA GRA</button>
+        <button mat-raised-button class="bottom-button" (click)="editWords()">HASŁA</button>
       </div>
     
       <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
@@ -29,7 +31,7 @@
       </div>
     
       <div fxFlex="40" fxLayout="row" fxLayoutAlign="end center">
-        <button mat-stroked-button (click)="openSnackBar()" aria-label="Show an example snack-bar">
+        <button mat-raised-button class="bottom-button" (click)="openSnackBar()" aria-label="Show an example snack-bar">
           CZAS
         </button>
         <mat-slide-toggle [(ngModel)]="areClickedHidden">

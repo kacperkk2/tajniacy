@@ -1,0 +1,16 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 mat-dialog-title> Wpisz nowe hasła rozdzielone nową linią lub spacją</h2>
+    <button  mat-icon-button (click)="onBackClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+    <form [formGroup]="newWordsForm">
+        <mat-form-field style="width: 100%; background-color: #282828;" >
+            <textarea matInput rows="10" formControlName="content"></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button mat-raised-button [disabled]="!newWordsForm.valid" (click)="parseWords()">Dodaj</button>
+</mat-dialog-actions>

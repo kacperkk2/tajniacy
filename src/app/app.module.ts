@@ -11,14 +11,24 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { EditWordsDialog } from './edit-words-dialog/edit-words-dialog';
+import { InfoDialog } from './info-dialog/info-dialog';
+import { AddNewWordsDialog } from './add-new-words-dialog/add-new-words-dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ConfirmDialog } from './confirm-dialog/confirm-dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogContentComponent,
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    EditWordsDialog,
+    InfoDialog,
+    AddNewWordsDialog,
+    ConfirmDialog
   ],
   imports: [
     BrowserModule,
@@ -32,7 +42,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSlideToggleModule,
     MatIconModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

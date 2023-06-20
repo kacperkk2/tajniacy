@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { HttpClientService } from './http-client.service';
+import { EditWordsDialog } from './edit-words-dialog/edit-words-dialog';
+import { HttpClientService, WordsDto } from './http-client.service';
 
 @Component({
   selector: 'app-root',
@@ -39,12 +40,25 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
 
+  editWords() {
+    this.httpClient.getWords().subscribe((wordsDto: WordsDto) => {
+      if (wordsDto) {
+        const dialogRef = this.dialog.open(EditWordsDialog, {data: wordsDto.words, width: '100vw'});
+        dialogRef.afterClosed().subscribe(words => {
+          if (words) {
+            this.httpClient.saveWords(words).subscribe();
+          }
+        });
+      }
+    });
+  }
+
   openSnackBar() {
     const msg = 'Czas gry: ' + this.formatTime(this.secondsThisGame) + 
       '. Czas od ostatniego ruchu: ' + this.formatTime(this.secondsFromLastClick);
     this._snackBar.open(msg, 'Zamknij', {
       duration: 3000,
-      panelClass: ['snackbar']
+      panelClass: ['mat-toolbar']
     });
   }
 
@@ -91,7 +105,7 @@ export class AppComponent implements OnInit {
 
   getBorderColor(tile: Tile) {
     if (this.areClickedHidden && tile.clicked) {
-      return 'white';
+      return '#282828';
     }
     else if (this.isLeader && tile.clicked) {
       return '0px 0px 0px 5px ' + tile.color + ' inset';
@@ -103,11 +117,11 @@ export class AppComponent implements OnInit {
 
   getCardColor(tile: Tile) {
     if (this.areClickedHidden && tile.clicked) {
-      return 'white';
+      return '#282828';
     }
     if (this.isLeader) {
       if (tile.clicked) {
-        return 'white';
+        return '#282828';
       }
       else {
         return tile.color;
@@ -118,14 +132,17 @@ export class AppComponent implements OnInit {
         return tile.color;
       }
       else {
-        return "#FAEACB";
+        return "#ebd2a4";
       }
     }
   }
 
   getCardTextColor(tile: Tile) {
     if (this.areClickedHidden && tile.clicked) {
-      return 'white';
+      return '#282828';
+    }
+    else if (!this.areClickedHidden && this.isLeader && tile.clicked) {
+      return 'lightgrey';
     }
     else if (tile.color == Color.BLACK && tile.clicked && !this.isLeader) {
       return 'white';
@@ -139,7 +156,7 @@ export class AppComponent implements OnInit {
   }
 
   picked(tile: Tile) {
-    if (this.isLeader) {
+    if (this.isLeader && !tile.clicked) {
       const dialogRef = this.dialog.open(DialogContentComponent, {data: tile.text});
 
       dialogRef.afterClosed().subscribe(result => {
@@ -165,6 +182,11 @@ export interface Tile {
   text: string;
   color: string;
   clicked: boolean;
+}
+
+export interface Word {
+  word: string;
+  inUse: boolean;
 }
 
 const Color = {
