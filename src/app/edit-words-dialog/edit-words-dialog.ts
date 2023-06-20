@@ -70,10 +70,15 @@ export class EditWordsDialog {
     onSave() {
         if (this.wordsInUse < 25) {
             this.dialog.open(InfoDialog, {data: "W użyciu nie może być mniej niż 25 haseł"});
+            return;
         }
-        else {
+        const message = "Czy na pewno chcesz zapisać?"
+        const dialogRef = this.dialog.open(ConfirmDialog, {data: message, autoFocus: false});
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
             this.dialogRef.close(this.words);
-        }
+          }
+        });
     }
 
     onDeleteUnused() {
