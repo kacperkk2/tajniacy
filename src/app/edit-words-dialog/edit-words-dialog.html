@@ -15,7 +15,7 @@
 <mat-dialog-content>
     <mat-grid-list cols="5" [gutterSize]="'5px'" rowHeight="30px">
         <mat-grid-tile *ngFor="let word of words" style="border-radius: 3px;"
-            [style.background]="word.inUse ? '#ebd2a4' : '#535353'"
+            [style.background]="word.inUse ? '#FFD580' : '#535353'"
             [style.color]="word.inUse ? 'black' : 'lightgrey'"
             (click)="toggle(word)">
           <div> {{ word.word | uppercase }} </div>

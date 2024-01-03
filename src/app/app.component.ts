@@ -132,7 +132,7 @@ export class AppComponent implements OnInit {
         return tile.color;
       }
       else {
-        return "#ebd2a4";
+        return "#FFD580";
       }
     }
   }
@@ -191,7 +191,7 @@ export interface Word {
 
 const Color = {
   "RED": "#f06a68",
-  "BLUE": "lightblue",
+  "BLUE": "#89CFEF",
   "BLANK": "#CDCDCD",
   "BLACK": "black"
 }
