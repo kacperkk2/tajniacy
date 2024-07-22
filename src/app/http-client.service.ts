@@ -7,7 +7,7 @@ import { Tile, Word } from './app.component';
 })
 export class HttpClientService {
 
-  baseUrl: string = "https://tajniacy-backend-production.up.railway.app"
+  baseUrl: string = "https://tajniacy-production.up.railway.app"
 
   constructor(private http: HttpClient) { }
 
