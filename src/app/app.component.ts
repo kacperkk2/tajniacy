@@ -90,11 +90,12 @@ export class AppComponent implements OnInit {
   }
 
   leaderSwitch() {
-    const dialogRef = this.dialog.open(DialogConfirmComponent, {data: "Na pewno chcesz zostać liderem?"});
+    const message = this.isLeader ? "Na pewno wrócić do widoku gracza?" : "Na pewno otworzyć widok lidera?";
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {data: message});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.isLeader = true;
+        this.isLeader = !this.isLeader;
       }
     });
   }

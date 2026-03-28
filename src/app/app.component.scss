@@ -22,25 +22,14 @@
   border-radius: 3px;
 }
 
-.card-icon {
-  background-color: #424242;
-  color: white;
-  width: 25px;
-  height: 35px;
-  line-height: 35px;
-  font-size: 12px;
-  text-align: center;
-  border-radius: 3px;
-}
-
 .red-card {
   background-color: #f06a68;
-  margin-right: 20px;
+  margin-right: 8px;
 }
 
 .blue-card {
   background-color: #89CFEF;
-  margin-left: 20px;
+  margin-left: 8px;
 }
 
 .test {
@@ -50,11 +39,9 @@
 .bottom-nav {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  height: auto;
-  padding: 4px 0;
+  padding: 2px 0;
 }
 
 .bottom-left {
@@ -84,23 +71,36 @@
   flex: 1 1 0;
 }
 
-.bottom-button {
-  margin-left: 10px !important;
-  margin-right: 10px !important;
-  // background-color: #dfdfdf;
-  font-size: 12px;
+.bottom-icon-button {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  color: #cccccc;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .leader-crown-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
 }
 
-.mat-slide-toggle {
-  margin-left: 10px !important;
-  margin-right: 10px !important;
-}
-
-:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-  background-color: #424242 ;
-}
-:host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-  background-color: #424242 ;
+// LIDER button when active
+:host ::ng-deep .leader-active.mat-mdc-icon-button[disabled] {
+  color: #e65100 !important;
+  opacity: 1 !important;
 }
 
 .mat-grid-list {
@@ -114,42 +114,31 @@
   max-width: 1200px;
 }
 
+// Visibility toggle icon button
+.visibility-toggle {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  color: #cccccc;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .mat-toolbar {
   background-color: aqua;
   --mdc-snackbar-container-color: #2196f3;
   --mat-mdc-snack-bar-button-color: #fff;
   --mdc-snackbar-supporting-text-color: #fff;
-}
-
-// Breakpoint: LIDER+NOWA GRA+HASŁA przeskakują do wiersza 2, reszta zostaje w wierszu 1
-@media (max-width: 660px) {
-  .bottom-nav {
-    row-gap: 6px;
-  }
-
-  .bottom-center {
-    flex: 0 0 auto;
-    order: 1;
-  }
-
-  .bottom-right {
-    flex: 1 1 auto;
-    order: 2;
-    justify-content: flex-end;
-  }
-
-  .bottom-left {
-    flex: 0 0 100%;
-    order: 3;
-    justify-content: center;
-  }
-
-  .bottom-button {
-    margin-left: 5px !important;
-    margin-right: 5px !important;
-    font-size: 11px;
-    min-width: unset;
-  }
 }
 
 .mat-mdc-snack-bar-container {
