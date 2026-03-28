@@ -4,6 +4,14 @@
   margin-right: 30px !important;
 }
 
+.main-tile div {
+  font-size: clamp(9px, 2.5vw, 14px);
+  word-break: break-word;
+  text-align: center;
+  padding: 2px;
+  line-height: 1.2;
+}
+
 .small-card {
   border: 1px solid black;
   width: 25px;
@@ -40,7 +48,40 @@
 }
 
 .bottom-nav {
-  // background-color: lightgrey;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  padding: 4px 0;
+}
+
+.bottom-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  order: 1;
+  flex: 1 1 0;
+}
+
+.bottom-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+  flex: 0 0 auto;
+}
+
+.bottom-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  order: 3;
+  flex: 1 1 0;
 }
 
 .bottom-button {
@@ -78,6 +119,37 @@
   --mdc-snackbar-container-color: #2196f3;
   --mat-mdc-snack-bar-button-color: #fff;
   --mdc-snackbar-supporting-text-color: #fff;
+}
+
+// Breakpoint: LIDER+NOWA GRA+HASŁA przeskakują do wiersza 2, reszta zostaje w wierszu 1
+@media (max-width: 660px) {
+  .bottom-nav {
+    row-gap: 6px;
+  }
+
+  .bottom-center {
+    flex: 0 0 auto;
+    order: 1;
+  }
+
+  .bottom-right {
+    flex: 1 1 auto;
+    order: 2;
+    justify-content: flex-end;
+  }
+
+  .bottom-left {
+    flex: 0 0 100%;
+    order: 3;
+    justify-content: center;
+  }
+
+  .bottom-button {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    font-size: 11px;
+    min-width: unset;
+  }
 }
 
 .mat-mdc-snack-bar-container {

@@ -3,7 +3,7 @@
 
   <div class="main" fxLayout="column" fxLayoutAlign="center center">
 
-    <div fxFlexFill fxFlex="87">
+    <div fxFlexFill fxFlex="85">
       <mat-grid-list cols="5" [gutterSize]="'5px'" rowHeight="fit">
         <mat-grid-tile (click)="picked(tile)" 
             *ngFor="let tile of tiles"
@@ -18,19 +18,19 @@
   
     <div fxFlexFill fxFlex="1"></div>
     
-    <div class="bottom-nav" fxFlexFill fxFlex="12" fxLayout="row" fxLayoutAlign="space-between center">
-      <div fxFlex="40" fxLayout="row" fxLayoutAlign="start center">
+    <div class="bottom-nav" fxFlexFill fxFlex="14">
+      <div class="bottom-left">
         <button mat-raised-button class="bottom-button" [disabled]="isLeader" (click)="leaderSwitch()">LIDER</button>
         <button mat-raised-button class="bottom-button" (click)="newGame()">NOWA GRA</button>
         <button mat-raised-button class="bottom-button" (click)="editWords()">HASŁA</button>
       </div>
-    
-      <div fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+
+      <div class="bottom-center">
         <div class="small-card red-card">{{redLeft}}</div>
         <div class="small-card blue-card">{{blueLeft}}</div>
       </div>
-    
-      <div fxFlex="40" fxLayout="row" fxLayoutAlign="end center">
+
+      <div class="bottom-right">
         <button mat-raised-button class="bottom-button" (click)="openSnackBar()" aria-label="Show an example snack-bar">
           CZAS
         </button>
