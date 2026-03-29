@@ -1,16 +1,30 @@
-<div fxLayout="row" fxLayoutAlign="space-between center">
-    <h2 mat-dialog-title> Wpisz nowe hasła rozdzielone nową linią lub spacją</h2>
-    <button  mat-icon-button (click)="onBackClick()">
-        <mat-icon>close</mat-icon>
+<div class="an-wrapper">
+  <div class="an-header">
+    <button mat-icon-button (click)="onBackClick()" title="Wróć">
+      <mat-icon>arrow_back</mat-icon>
     </button>
-</div>
-<mat-dialog-content>
-    <form [formGroup]="newWordsForm">
-        <mat-form-field style="width: 100%; background-color: #282828;" >
-            <textarea matInput rows="10" formControlName="content"></textarea>
-        </mat-form-field>
+    <span class="an-title">Dodaj nowe hasła</span>
+  </div>
+
+  <div class="an-content">
+    <p class="an-hint">Wpisz hasła oddzielone spacją lub nową linią</p>
+    <form [formGroup]="newWordsForm" class="an-form">
+      <textarea
+        class="an-textarea"
+        formControlName="content"
+        placeholder="np. JABŁKO GRUSZKA&#10;SAMOCHÓD"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="characters"
+        spellcheck="false">
+      </textarea>
     </form>
-</mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
-  <button mat-raised-button [disabled]="!newWordsForm.valid" (click)="parseWords()">Dodaj</button>
-</mat-dialog-actions>
+  </div>
+
+  <div class="an-footer">
+    <button mat-raised-button class="an-btn-add" [disabled]="!newWordsForm.get('content')?.value?.trim()" (click)="parseWords()">
+      <mat-icon>add</mat-icon>
+      Dodaj
+    </button>
+  </div>
+</div>

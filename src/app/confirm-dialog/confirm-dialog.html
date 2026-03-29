@@ -1,11 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="end center">
-    <button [mat-dialog-close]="false" mat-icon-button>
-        <mat-icon>close</mat-icon>
+<div class="cd-wrapper">
+  <div class="cd-header">
+    <span class="cd-title">{{ text }}</span>
+    <button mat-icon-button [mat-dialog-close]="false">
+      <mat-icon>close</mat-icon>
     </button>
+  </div>
+  <div class="cd-footer">
+    <button mat-raised-button class="cd-btn cd-btn-cancel" [mat-dialog-close]="false">Nie</button>
+    <button mat-raised-button class="cd-btn cd-btn-confirm" [mat-dialog-close]="true">Tak</button>
+  </div>
 </div>
-<mat-dialog-content fxLayout="row" fxLayoutAlign="center center">
-    <p> {{ text }} </p>
-</mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
-  <button mat-raised-button [mat-dialog-close]="true">Tak</button>
-</mat-dialog-actions>

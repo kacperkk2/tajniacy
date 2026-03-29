@@ -1,32 +1,56 @@
-<div fxLayout="row" fxLayoutAlign="space-between center">
-    <p mat-dialog-title> Wszystkich haseł: {{ words.length }} (w użyciu: {{ wordsInUse }}) </p>
-    <div>
-        <button mat-icon-button (click)="onCheckAll()" [disabled]="wordsInUse == words.length">
-            <mat-icon>check_circle</mat-icon>
+<div class="ew-wrapper">
+  <div class="ew-header">
+    <div class="ew-title-row">
+      <span class="ew-title">Hasła</span>
+      <span class="ew-count">w użyciu: <strong>{{ wordsInUse }}</strong> / {{ words.length }}</span>
+      <div class="ew-header-actions">
+        <button mat-icon-button (click)="onCheckAll()" [disabled]="wordsInUse == words.length" title="Zaznacz wszystkie">
+          <mat-icon>check_circle</mat-icon>
         </button>
-        <button mat-icon-button (click)="onUncheckAll()" [disabled]="wordsInUse == 0" style="margin-right: 30px;">
-            <mat-icon>check_circle_outline</mat-icon>
+        <button mat-icon-button (click)="onUncheckAll()" [disabled]="wordsInUse == 0" title="Odznacz wszystkie">
+          <mat-icon>check_circle_outline</mat-icon>
         </button>
-        <button mat-icon-button (click)="onBackClick()">
-            <mat-icon>close</mat-icon>
+        <button mat-icon-button (click)="onBackClick()" title="Zamknij">
+          <mat-icon>close</mat-icon>
         </button>
+      </div>
     </div>
+    <div class="ew-search-row">
+      <mat-icon class="ew-search-icon">search</mat-icon>
+      <input class="ew-search-input" type="text" placeholder="Szukaj hasła..." [(ngModel)]="searchQuery" />
+      <button *ngIf="searchQuery" mat-icon-button class="ew-search-clear" (click)="searchQuery = ''">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="ew-content">
+    <div class="ew-grid">
+      <div *ngFor="let word of filteredWords"
+           class="ew-tile"
+           [class.in-use]="word.inUse"
+           [class.excluded]="!word.inUse"
+           (click)="toggle(word)">
+        {{ word.word | uppercase }}
+      </div>
+    </div>
+    <div *ngIf="filteredWords.length === 0" class="ew-empty">
+      Brak haseł pasujących do wyszukiwania
+    </div>
+  </div>
+
+  <div class="ew-footer">
+    <button mat-raised-button class="ew-btn ew-btn-danger" (click)="onDeleteUnused()" [disabled]="wordsInUse == words.length || words.length === 0">
+      <span>Usuń<br>nieużywane</span>
+    </button>
+    <button mat-raised-button class="ew-btn" (click)="onAddNew()">
+      <span>Dodaj<br>nowe</span>
+    </button>
+    <button mat-raised-button class="ew-btn" (click)="onReset()">
+      <span>Wczytaj<br>domyślne</span>
+    </button>
+    <button mat-raised-button class="ew-btn ew-btn-save" (click)="onSave()">
+      <span>Zapisz</span>
+    </button>
+  </div>
 </div>
-<mat-dialog-content>
-    <mat-grid-list cols="5" [gutterSize]="'5px'" rowHeight="30px">
-        <mat-grid-tile *ngFor="let word of words" style="border-radius: 3px;"
-            [style.background]="word.inUse ? '#FFD580' : '#535353'"
-            [style.color]="word.inUse ? 'black' : 'lightgrey'"
-            (click)="toggle(word)">
-          <div> {{ word.word | uppercase }} </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-</mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-    <div>
-        <button mat-raised-button style="background-color: #282828" (click)="onDeleteUnused()" [disabled]="wordsInUse == words.length"> Usuń nieużywane hasła </button>
-        <button mat-raised-button style="background-color: #282828" (click)="onAddNew()"> Dodaj nowe hasła </button>
-        <button mat-raised-button style="background-color: #282828" (click)="onReset()"> Wczytaj domyślne </button>
-    </div>
-    <button mat-raised-button style="background-color: #282828" (click)="onSave()" cdkFocusInitial>Zapisz</button>
-</mat-dialog-actions>
