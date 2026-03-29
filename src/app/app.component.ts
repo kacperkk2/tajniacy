@@ -43,7 +43,14 @@ export class AppComponent implements OnInit {
   editWords() {
     this.httpClient.getWords().subscribe((wordsDto: WordsDto) => {
       if (wordsDto) {
-        const dialogRef = this.dialog.open(EditWordsDialog, {data: wordsDto.words, width: '100vw'});
+        const dialogRef = this.dialog.open(EditWordsDialog, {
+          data: wordsDto.words,
+          width: '100vw',
+          height: '100dvh',
+          maxWidth: '100vw',
+          maxHeight: '100dvh',
+          panelClass: 'fullscreen-dialog'
+        });
         dialogRef.afterClosed().subscribe(words => {
           if (words) {
             this.httpClient.saveWords(words).subscribe();

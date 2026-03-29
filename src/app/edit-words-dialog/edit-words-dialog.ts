@@ -1,4 +1,4 @@
-import {Component, Inject, ViewChild} from '@angular/core';
+import {Component, Inject, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
@@ -13,10 +13,19 @@ import { ConfirmDialog } from '../confirm-dialog/confirm-dialog';
 
 @Component({
   selector: 'edit-words-dialog',
-  templateUrl: 'edit-words-dialog.html'
+  templateUrl: 'edit-words-dialog.html',
+  styleUrls: ['edit-words-dialog.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class EditWordsDialog {
     wordsInUse: number = 0;
+    searchQuery: string = '';
+
+    get filteredWords(): Word[] {
+        if (!this.searchQuery.trim()) return this.words;
+        const q = this.searchQuery.trim().toUpperCase();
+        return this.words.filter(w => w.word.includes(q));
+    }
     
     constructor(
         public dialogRef: MatDialogRef<EditWordsDialog>,
@@ -98,7 +107,14 @@ export class EditWordsDialog {
     }
 
     onAddNew() {
-        const dialogRef = this.dialog.open(AddNewWordsDialog, {width: '100%', autoFocus: false});
+        const dialogRef = this.dialog.open(AddNewWordsDialog, {
+            width: '100vw',
+            height: '100dvh',
+            maxWidth: '100vw',
+            maxHeight: '100dvh',
+            panelClass: 'fullscreen-dialog',
+            autoFocus: true
+        });
         dialogRef.afterClosed().subscribe((words: string[]) => {
             if (words) {
                 words.forEach(word => this.words.push({"word": word.toUpperCase(), "inUse": true}));

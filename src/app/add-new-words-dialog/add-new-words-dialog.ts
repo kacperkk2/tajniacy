@@ -1,10 +1,12 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewEncapsulation} from '@angular/core';
 import {MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'add-new-words-dialog',
-  templateUrl: 'add-new-words-dialog.html'
+  templateUrl: 'add-new-words-dialog.html',
+  styleUrls: ['add-new-words-dialog.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddNewWordsDialog {
     newWordsForm: FormGroup;
